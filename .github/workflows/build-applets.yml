@@ -1,0 +1,158 @@
+name: Build applets
+
+# Polls the upstream repos' VERSION files. When a version has no release here
+# yet, builds it with the upstream packaging script and publishes a GitHub
+# Release. Afterwards extensions.xml in this repo is regenerated from the
+# latest release of each applet.
+
+on:
+  schedule:
+    - cron: "17 4 * * *"   # daily 04:17 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild even if a release for the current version exists"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-applets
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # upstream .ps1 scripts verified to work under pwsh on Linux
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: StandaloneRadio
+            upstream: ssbrandsma/SBStandalone
+            script: scripts/build-applet-package.ps1
+            binaries_base: ""
+          - name: SpotifyConnect
+            upstream: ssbrandsma/squeezebox-radio-spotify-connect
+            script: build/package.ps1
+            # Upstream ZIPs of the SAME version are used as the source of the
+            # four ARM runtime binaries (librespot etc.).
+            binaries_base: http://49.12.198.91/sbspotifyconnect
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NAME: ${{ matrix.name }}
+      UPSTREAM: ${{ matrix.upstream }}
+    steps:
+      - name: Clone upstream
+        run: git clone --depth 1 "https://github.com/$env:UPSTREAM.git" upstream
+
+      - name: Check version
+        id: check
+        run: |
+          $ver = (Get-Content upstream/VERSION -Raw).Trim()
+          $sha = (git -C upstream rev-parse --short HEAD).Trim()
+          $tag = "$env:NAME-v$ver"
+          "version=$ver" >> $env:GITHUB_OUTPUT
+          "commit=$sha"  >> $env:GITHUB_OUTPUT
+          "tag=$tag"     >> $env:GITHUB_OUTPUT
+          gh release view $tag -R $env:GITHUB_REPOSITORY *> $null
+          $exists = ($LASTEXITCODE -eq 0)
+          $global:LASTEXITCODE = 0
+          if ($exists -and '${{ inputs.force }}' -eq 'true') {
+            Write-Host "Force: deleting existing release $tag"
+            gh release delete $tag -R $env:GITHUB_REPOSITORY --cleanup-tag -y
+            $exists = $false
+          }
+          "build=$(-not $exists)".ToLower() >> $env:GITHUB_OUTPUT
+          Write-Host "$env:NAME upstream $ver ($sha) -> release $tag exists: $exists"
+
+      - name: Fetch ARM binaries from upstream ZIP of same version
+        if: steps.check.outputs.build == 'true' && matrix.binaries_base != ''
+        env:
+          VER: ${{ steps.check.outputs.version }}
+        run: |
+          $zipName = "$env:NAME-$env:VER.zip"
+          $zip = Join-Path $env:RUNNER_TEMP $zipName
+          try {
+            Invoke-WebRequest "${{ matrix.binaries_base }}/$zipName" -OutFile $zip
+          } catch {
+            Write-Host "Not on upstream server, trying upstream GitHub release v$env:VER"
+            gh release download "v$env:VER" -R $env:UPSTREAM -p $zipName -D $env:RUNNER_TEMP --clobber
+            if ($LASTEXITCODE -ne 0) { throw "No upstream $zipName found; refusing to mix binaries from another version" }
+          }
+          $x = Join-Path $env:RUNNER_TEMP 'upstream-zip'
+          Expand-Archive $zip -DestinationPath $x -Force
+          $out = 'upstream/build/out'
+          New-Item -ItemType Directory -Force $out | Out-Null
+          foreach ($b in 'librespot','ogg-http-bridge','spotify-metadata','spotify-supervisor') {
+            if (-not (Test-Path "$x/$b")) { throw "Binary $b missing from upstream $zipName" }
+            Copy-Item "$x/$b" "$out/$b" -Force
+          }
+          Get-ChildItem $out
+
+      - name: Build with upstream packaging script
+        if: steps.check.outputs.build == 'true'
+        env:
+          TAG: ${{ steps.check.outputs.tag }}
+        run: |
+          $base = "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$env:TAG"
+          $dist = Join-Path $env:RUNNER_TEMP 'dist'
+          & "upstream/${{ matrix.script }}" -BaseUrl $base -OutputDirectory $dist
+          Copy-Item "$dist/extensions.xml" "$dist/$env:NAME.extensions.xml"
+          Get-ChildItem $dist
+
+      - name: Publish release
+        if: steps.check.outputs.build == 'true'
+        env:
+          TAG: ${{ steps.check.outputs.tag }}
+          VER: ${{ steps.check.outputs.version }}
+          COMMIT: ${{ steps.check.outputs.commit }}
+        run: |
+          $dist = Join-Path $env:RUNNER_TEMP 'dist'
+          $zip = "$dist/$env:NAME-$env:VER.zip"
+          $sha1 = (Get-FileHash $zip -Algorithm SHA1).Hash.ToLower()
+          $notes = "$env:NAME $env:VER built from https://github.com/$env:UPSTREAM/commit/$env:COMMIT`n`nZIP SHA-1: ``$sha1``"
+          gh release create $env:TAG $zip "$dist/$env:NAME.extensions.xml" `
+            -R $env:GITHUB_REPOSITORY --title "$env:NAME $env:VER" --notes $notes
+          if ($LASTEXITCODE -ne 0) { throw "gh release create failed" }
+
+  index:
+    needs: build
+    if: always()
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download latest fragment per applet
+        run: |
+          mkdir -p fragments
+          # Releases are listed newest first; keep the first tag per applet name.
+          gh release list -R "$GITHUB_REPOSITORY" --limit 500 --exclude-drafts \
+              --json tagName -q '.[].tagName' |
+            awk -F'-v' '!seen[$1]++' |
+            while read -r tag; do
+              name=${tag%-v*}
+              gh release download "$tag" -R "$GITHUB_REPOSITORY" \
+                -p "$name.extensions.xml" -D fragments --clobber || echo "no fragment in $tag"
+            done
+          ls -l fragments
+
+      - name: Merge into extensions.xml
+        run: python3 tools/merge_extensions.py fragments/*.xml -o extensions.xml
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- extensions.xml && git ls-files --error-unmatch extensions.xml >/dev/null 2>&1; then
+            echo "extensions.xml unchanged"; exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add extensions.xml
+          git commit -m "Update extensions.xml"
+          git push

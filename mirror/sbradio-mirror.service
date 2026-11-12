@@ -1,0 +1,24 @@
+# Install:
+#   sudo cp sbradio_mirror.py /usr/local/bin/ && sudo chmod 755 /usr/local/bin/sbradio_mirror.py
+#   sudo cp sbradio-mirror.service /etc/systemd/system/
+#   edit REPO / PUBLIC_BASE / port below, then:
+#   sudo systemctl daemon-reload && sudo systemctl enable --now sbradio-mirror
+#   journalctl -u sbradio-mirror -f
+[Unit]
+Description=SBRadio applet repository LAN mirror (plain HTTP for Squeezebox)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=REPO=macsatcom/SBRadio
+Environment=PUBLIC_BASE=http://192.168.1.20:8099
+ExecStart=/usr/bin/python3 /usr/local/bin/sbradio_mirror.py \
+  --repo ${REPO} --public-base ${PUBLIC_BASE} \
+  --dir /var/lib/sbradio-mirror --prune --serve 8099 --interval 3600
+DynamicUser=yes
+StateDirectory=sbradio-mirror
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
