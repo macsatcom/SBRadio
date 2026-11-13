@@ -6,6 +6,7 @@ Radio's built-in **Applet Installer**:
 
 | Applet | What it does | Upstream project |
 |---|---|---|
+| **Standalone Base** | Required base for the others: HTTPS proxy, Now Playing, web interface, Extended Storage. Install first | [ssbrandsma/SBStandaloneBase](https://github.com/ssbrandsma/SBStandaloneBase) |
 | **Standalone Radio** | Internet radio on the Radio without a running music server | [ssbrandsma/SBStandalone](https://github.com/ssbrandsma/SBStandalone) |
 | **Spotify Connect** | Makes the Radio a Spotify Connect speaker | [ssbrandsma/squeezebox-radio-spotify-connect](https://github.com/ssbrandsma/squeezebox-radio-spotify-connect) |
 
@@ -93,17 +94,21 @@ Plugins::SBRadio::Plugin ... offering 4 applet entries
    **Home → Settings → Advanced → Networking → Remote Libraries** (on some
    firmware: **Home → Choose Library / Switch Library**) and select your LMS.
 2. On the Radio, go to **Home → Settings → Advanced → Applet Installer**.
-3. You will see **Standalone Radio** and **Spotify Connect** in the list.
-   Select one and choose **Install**.
-4. Confirm. The Radio downloads the applet from LMS and restarts.
-5. After the restart the applet is in the Home menu (or under My Apps /
+3. Install **Standalone Base first**: select it, choose **Install** and
+   confirm. The Radio downloads it from LMS and restarts. After the restart it
+   shows "Standalone" at the top of the screen.
+4. Open the **Applet Installer** again and install **Standalone Radio**
+   and, if you want it, **Spotify Connect** the same way.
+5. After the restart the applets are in the Home menu (or under My Apps /
    Extras, depending on firmware).
 
-**Extended Storage users:** according to the Standalone Radio author, if
-**Extended Storage** is enabled on your Radio you must first install
-**Standalone Base 0.5.7 or later** before Standalone Radio 0.9.9 or newer.
-Standalone Base is not included here; see the
-[SBStandalone README](https://github.com/ssbrandsma/SBStandalone).
+**Why Standalone Base?** It is the local infrastructure the other applets run
+on: an HTTPS proxy (so the Radio can play modern HTTPS streams), the Now
+Playing screen integration, artwork, the station web interface and Extended
+Storage support. Since Standalone Radio 0.9.8 it is required.
+
+**Spotify Connect** is large (4 MB+). The author recommends enabling
+**Extended Storage** in Standalone Base before installing it.
 
 **Spotify Connect:** after installing, open the applet on the Radio and follow
 the pairing instructions there. The Radio then shows up as a speaker in the
@@ -193,5 +198,6 @@ the plugin at the same time.
 The applets are written by Sjoerd Brandsma
 ([ssbrandsma](https://github.com/ssbrandsma)). This repository only builds and
 repackages them; report applet bugs to the upstream projects. The Spotify
-Connect ARM programs (librespot etc.) are taken unchanged from the author's own
-release of the same version.
+Connect ARM programs (librespot etc.) and the Standalone Base packages are
+taken unchanged from the author's own builds, and only for the version
+published in his GitHub repository.

@@ -120,8 +120,42 @@ jobs:
             -R $env:GITHUB_REPOSITORY --title "$env:NAME $env:VER" --notes $notes
           if ($LASTEXITCODE -ne 0) { throw "gh release create failed" }
 
+  # Standalone Base is mostly native ARM code (C daemons + kernel module) that
+  # needs the author's custom toolchain, so its ZIPs are re-hosted unchanged
+  # from the author's server -- but only for the version that is on GitHub.
+  rehost-base:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NAME: StandaloneBase
+      UPSTREAM: ssbrandsma/SBStandaloneBase
+      SRC: http://49.12.198.91/sbstandalonebase
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Re-host Standalone Base
+        run: |
+          set -euo pipefail
+          ver=$(curl -fsSL "https://raw.githubusercontent.com/$UPSTREAM/main/config.json" |
+                python3 -c 'import json,sys;print(json.load(sys.stdin)["standalone_base_version"])')
+          tag="$NAME-v$ver"
+          echo "GitHub version: $ver"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            if [ "${{ inputs.force }}" != "true" ]; then echo "release $tag exists"; exit 0; fi
+            gh release delete "$tag" --cleanup-tag -y
+          fi
+          mkdir -p d && cd d
+          curl -fsSL "$SRC/extensions.xml" -o upstream.xml
+          python3 ../tools/rehost.py upstream.xml --name "$NAME" --version "$ver" \
+            --base-url "https://github.com/$GITHUB_REPOSITORY/releases/download/$tag" \
+            --out "$NAME.extensions.xml"
+          ls -l
+          gh release create "$tag" ./*.zip "$NAME.extensions.xml" -R "$GITHUB_REPOSITORY" \
+            --title "$NAME $ver" --latest=false \
+            --notes "Standalone Base $ver, re-hosted unchanged from the author's build ($SRC). Source: https://github.com/$UPSTREAM"
+
   index:
-    needs: build
+    needs: [build, rehost-base]
     if: always()
     runs-on: ubuntu-latest
     env:
