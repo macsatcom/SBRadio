@@ -20,6 +20,22 @@
       <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.5.4/SpotifyConnect-0.5.4.zip</url>
       <sha>4e32aa2c095827dccce8472e554cf9abb9ff332f</sha>
     </applet>
+    <applet name="StandaloneBase" version="0.7.0" target="baby" minTarget="7.7.2" maxTarget="*">
+      <title lang="EN">Standalone Base</title>
+      <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Radio.</desc>
+      <changes lang="EN">Dual-platform Baby/Fab4 builds and live Virtual Touch display with touchscreen controls.</changes>
+      <creator>Sjoerd Brandsma</creator>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.0/StandaloneBase-0.7.0-baby.zip</url>
+      <sha>e47f6f955edf355d12d61bdf4cb9808f64941c18</sha>
+    </applet>
+    <applet name="StandaloneBase" version="0.7.0" target="fab4" minTarget="7.7.2" maxTarget="*">
+      <title lang="EN">Standalone Base</title>
+      <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Touch.</desc>
+      <changes lang="EN">Dual-platform Baby/Fab4 builds and live Virtual Touch display with touchscreen controls.</changes>
+      <creator>Sjoerd Brandsma</creator>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.0/StandaloneBase-0.7.0-fab4.zip</url>
+      <sha>94d40186bb3cba27a7155e0c404f039aa34338ee</sha>
+    </applet>
     <applet name="StandaloneRadio" version="0.9.19" target="baby" minTarget="7.7" maxTarget="*">
       <title lang="EN">Standalone Radio</title>
       <desc lang="EN">Standalone internet radio playback for Squeezebox Radio. LMS is only needed to install the applet.</desc>
