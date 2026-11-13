@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extensions>
+  <details>
+    <title lang="EN">SB Radio Applets</title>
+  </details>
+  <plugins>
+    <plugin name="SBRadio" version="1.0.0" minTarget="7.9" maxTarget="*">
+      <title lang="EN">SB Radio Applets</title>
+      <desc lang="EN">Offers Standalone Radio and Spotify Connect to Squeezebox Radio and Touch in the Applet Installer. The players download the applets from this LMS over plain HTTP.</desc>
+      <creator>macsatcom</creator>
+      <category>tools</category>
+      <link>https://github.com/macsatcom/SBRadio</link>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/SBRadioPlugin-v1.0.0/SBRadio-1.0.0.zip</url>
+      <sha>cc85a4cae13a16868cf2350e4115c8b214653ff2</sha>
+    </plugin>
+  </plugins>
+</extensions>
