@@ -136,7 +136,7 @@ jobs:
       - name: Re-host Standalone Base
         run: |
           set -euo pipefail
-          ver=$(curl -fsSL "https://raw.githubusercontent.com/$UPSTREAM/main/config.json" |
+          ver=$(curl -fsSL "https://raw.githubusercontent.com/$UPSTREAM/HEAD/config.json" |
                 python3 -c 'import json,sys;print(json.load(sys.stdin)["standalone_base_version"])')
           tag="$NAME-v$ver"
           echo "GitHub version: $ver"
