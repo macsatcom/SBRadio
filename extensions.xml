@@ -20,37 +20,37 @@
       <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.5.4/SpotifyConnect-0.5.4.zip</url>
       <sha>4e32aa2c095827dccce8472e554cf9abb9ff332f</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.0" target="baby" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.1" target="baby" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
       <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Radio.</desc>
-      <changes lang="EN">Dual-platform Baby/Fab4 builds and live Virtual Touch display with touchscreen controls.</changes>
+      <changes lang="EN">Remembered-browser web access, readable access codes, standby power/sequence handling and Radio connection fixes.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.0/StandaloneBase-0.7.0-baby.zip</url>
-      <sha>e47f6f955edf355d12d61bdf4cb9808f64941c18</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.1/StandaloneBase-0.7.1-baby.zip</url>
+      <sha>d10edcbc5caf1b7ec0be5893fa90c9c789fb61c1</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.0" target="fab4" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.1" target="fab4" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
       <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Touch.</desc>
-      <changes lang="EN">Dual-platform Baby/Fab4 builds and live Virtual Touch display with touchscreen controls.</changes>
+      <changes lang="EN">Remembered-browser web access, readable access codes, standby power/sequence handling and Radio connection fixes.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.0/StandaloneBase-0.7.0-fab4.zip</url>
-      <sha>94d40186bb3cba27a7155e0c404f039aa34338ee</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.1/StandaloneBase-0.7.1-fab4.zip</url>
+      <sha>afe4161a44d97e7b8ef82595920ddbde371523f1</sha>
     </applet>
-    <applet name="StandaloneRadio" version="0.9.19" target="baby" minTarget="7.7" maxTarget="*">
+    <applet name="StandaloneRadio" version="0.9.20" target="baby" minTarget="7.7" maxTarget="*">
       <title lang="EN">Standalone Radio</title>
       <desc lang="EN">Standalone internet radio playback for Squeezebox Radio. LMS is only needed to install the applet.</desc>
-      <changes lang="EN">Prevent standby recovery and queued reconnects from restarting audio; retain opt-in playback ownership support.</changes>
+      <changes lang="EN">Fix standby and explicit Play resume, respect other sources controls, remember the last station, and prevent local Base synchronization reconnect loops.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneRadio-v0.9.19/StandaloneRadio-0.9.19.zip</url>
-      <sha>defd1bd7995f31c321869dc664912f8449d56665</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneRadio-v0.9.20/StandaloneRadio-0.9.20.zip</url>
+      <sha>6a0a7b44c1b4201e8b4a136f7d419223f15d6283</sha>
     </applet>
-    <applet name="StandaloneRadio" version="0.9.19" target="fab4" minTarget="7.7" maxTarget="*">
+    <applet name="StandaloneRadio" version="0.9.20" target="fab4" minTarget="7.7" maxTarget="*">
       <title lang="EN">Standalone Radio</title>
       <desc lang="EN">Standalone internet radio playback for Squeezebox Touch. LMS is only needed to install the applet.</desc>
-      <changes lang="EN">Prevent standby recovery and queued reconnects from restarting audio; retain opt-in playback ownership support.</changes>
+      <changes lang="EN">Fix standby and explicit Play resume, respect other sources controls, remember the last station, and prevent local Base synchronization reconnect loops.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneRadio-v0.9.19/StandaloneRadio-0.9.19.zip</url>
-      <sha>defd1bd7995f31c321869dc664912f8449d56665</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneRadio-v0.9.20/StandaloneRadio-0.9.20.zip</url>
+      <sha>6a0a7b44c1b4201e8b4a136f7d419223f15d6283</sha>
     </applet>
   </applets>
 </extensions>
