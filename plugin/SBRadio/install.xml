@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<extension>
+	<name>PLUGIN_SBRADIO</name>
+	<module>Plugins::SBRadio::Plugin</module>
+	<version>1.0.0</version>
+	<description>PLUGIN_SBRADIO_DESC</description>
+	<creator>macsatcom</creator>
+	<homepageURL>https://github.com/macsatcom/SBRadio</homepageURL>
+	<category>tools</category>
+	<defaultState>enabled</defaultState>
+	<targetApplication>
+		<id>Lyrion Music Server</id>
+		<minVersion>7.9</minVersion>
+		<maxVersion>*</maxVersion>
+	</targetApplication>
+</extension>

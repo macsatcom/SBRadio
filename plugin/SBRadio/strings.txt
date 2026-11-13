@@ -1,0 +1,5 @@
+PLUGIN_SBRADIO
+	EN	SB Radio Applets
+
+PLUGIN_SBRADIO_DESC
+	EN	Downloads Standalone Radio and Spotify Connect applets from GitHub and offers them to Squeezebox Radio and Touch in the Applet Installer. The players download them from this server over plain HTTP.
