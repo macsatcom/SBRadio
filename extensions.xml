@@ -20,21 +20,21 @@
       <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.5.4/SpotifyConnect-0.5.4.zip</url>
       <sha>4e32aa2c095827dccce8472e554cf9abb9ff332f</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.1" target="baby" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.2" target="baby" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
       <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Radio.</desc>
-      <changes lang="EN">Remembered-browser web access, readable access codes, standby power/sequence handling and Radio connection fixes.</changes>
+      <changes lang="EN">Support the validated primary-first Radio 7.7.3 storage layout, retaining strict volume geometry, health and firmware checks. Fix exact volume-name matching.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.1/StandaloneBase-0.7.1-baby.zip</url>
-      <sha>d10edcbc5caf1b7ec0be5893fa90c9c789fb61c1</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.2/StandaloneBase-0.7.2-baby.zip</url>
+      <sha>6e3530a01b04504fd16ab238641850bd047b45aa</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.1" target="fab4" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.2" target="fab4" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
       <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Touch.</desc>
-      <changes lang="EN">Remembered-browser web access, readable access codes, standby power/sequence handling and Radio connection fixes.</changes>
+      <changes lang="EN">Support the validated primary-first Radio 7.7.3 storage layout, retaining strict volume geometry, health and firmware checks. Fix exact volume-name matching.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.1/StandaloneBase-0.7.1-fab4.zip</url>
-      <sha>afe4161a44d97e7b8ef82595920ddbde371523f1</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.2/StandaloneBase-0.7.2-fab4.zip</url>
+      <sha>26568cfedb6c32fce317cc7ed4895cbf0329114e</sha>
     </applet>
     <applet name="StandaloneRadio" version="0.9.20" target="baby" minTarget="7.7" maxTarget="*">
       <title lang="EN">Standalone Radio</title>
