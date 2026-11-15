@@ -33,12 +33,6 @@ jobs:
             upstream: ssbrandsma/SBStandalone
             script: scripts/build-applet-package.ps1
             binaries_base: ""
-          - name: SpotifyConnect
-            upstream: ssbrandsma/squeezebox-radio-spotify-connect
-            script: build/package.ps1
-            # Upstream ZIPs of the SAME version are used as the source of the
-            # four ARM runtime binaries (librespot etc.).
-            binaries_base: http://49.12.198.91/sbspotifyconnect
     defaults:
       run:
         shell: pwsh
@@ -120,24 +114,38 @@ jobs:
             -R $env:GITHUB_REPOSITORY --title "$env:NAME $env:VER" --notes $notes
           if ($LASTEXITCODE -ne 0) { throw "gh release create failed" }
 
-  # Standalone Base is mostly native ARM code (C daemons + kernel module) that
-  # needs the author's custom toolchain, so its ZIPs are re-hosted unchanged
-  # from the author's server -- but only for the version that is on GitHub.
-  rehost-base:
+  # Applets whose packaging needs native ARM builds made with the author's own
+  # toolchain. Their ZIPs are re-hosted unchanged from the author's server,
+  # but only for the exact version published in the GitHub repository, and
+  # only after the SHA-1 matches.
+  rehost:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: StandaloneBase
+            upstream: ssbrandsma/SBStandaloneBase
+            src: http://49.12.198.91/sbstandalonebase
+            version_cmd: python3 -c 'import json,sys;print(json.load(sys.stdin)["standalone_base_version"])'
+            version_file: config.json
+          - name: SpotifyConnect
+            upstream: ssbrandsma/squeezebox-radio-spotify-connect
+            src: http://49.12.198.91/sbspotifyconnect
+            version_cmd: tr -d ' \r\n'
+            version_file: VERSION
     env:
       GH_TOKEN: ${{ github.token }}
-      NAME: StandaloneBase
-      UPSTREAM: ssbrandsma/SBStandaloneBase
-      SRC: http://49.12.198.91/sbstandalonebase
+      NAME: ${{ matrix.name }}
+      UPSTREAM: ${{ matrix.upstream }}
+      SRC: ${{ matrix.src }}
     steps:
       - uses: actions/checkout@v5
 
-      - name: Re-host Standalone Base
+      - name: Re-host
         run: |
           set -euo pipefail
-          ver=$(curl -fsSL "https://raw.githubusercontent.com/$UPSTREAM/HEAD/config.json" |
-                python3 -c 'import json,sys;print(json.load(sys.stdin)["standalone_base_version"])')
+          ver=$(curl -fsSL "https://raw.githubusercontent.com/$UPSTREAM/HEAD/${{ matrix.version_file }}" | ${{ matrix.version_cmd }})
           tag="$NAME-v$ver"
           echo "GitHub version: $ver"
           if gh release view "$tag" >/dev/null 2>&1; then
@@ -152,10 +160,10 @@ jobs:
           ls -l
           gh release create "$tag" ./*.zip "$NAME.extensions.xml" -R "$GITHUB_REPOSITORY" \
             --title "$NAME $ver" --latest=false \
-            --notes "Standalone Base $ver, re-hosted unchanged from the author's build ($SRC). Source: https://github.com/$UPSTREAM"
+            --notes "$NAME $ver, re-hosted unchanged from the author's build ($SRC). Source: https://github.com/$UPSTREAM"
 
   index:
-    needs: [build, rehost-base]
+    needs: [build, rehost]
     if: always()
     runs-on: ubuntu-latest
     env:
