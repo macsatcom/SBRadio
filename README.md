@@ -197,7 +197,8 @@ the plugin at the same time.
 
 The applets are written by Sjoerd Brandsma
 ([ssbrandsma](https://github.com/ssbrandsma)). This repository only builds and
-repackages them; report applet bugs to the upstream projects. The Spotify
-Connect ARM programs (librespot etc.) and the Standalone Base packages are
-taken unchanged from the author's own builds, and only for the version
-published in his GitHub repository.
+repackages them; report applet bugs to the upstream projects. Standalone Radio
+is built from source here. Spotify Connect and Standalone Base contain native
+ARM programs that need the author's own toolchain, so their packages are taken
+unchanged from the author's builds, only for the version published in his
+GitHub repository, and only after the SHA-1 checksum matches.
