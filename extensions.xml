@@ -4,37 +4,37 @@
     <title lang="EN">SBRadio Applet Repository</title>
   </details>
   <applets>
-    <applet name="SpotifyConnect" version="0.5.4" target="baby" minTarget="7.7" maxTarget="*">
+    <applet name="SpotifyConnect" version="0.7.0" target="baby" minTarget="7.7" maxTarget="*">
       <title lang="EN">Spotify Connect</title>
       <desc lang="EN">Standalone Spotify Connect playback for Logitech Squeezebox Radio. LMS is only needed to install the applet.</desc>
-      <changes lang="EN">Fix playback across natural track boundaries and rapid Spotify track changes.</changes>
+      <changes lang="EN">Latch audio-completed events for reliable automatic track advancement; preserve complete endings and immediate manual skips; fix mobile selection and native Now Playing updates; remove UI shell polling.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.5.4/SpotifyConnect-0.5.4.zip</url>
-      <sha>4e32aa2c095827dccce8472e554cf9abb9ff332f</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.7.0/SpotifyConnect-0.7.0.zip</url>
+      <sha>838362554be3ea0828dcfff3dcf30414b19ff47c</sha>
     </applet>
-    <applet name="SpotifyConnect" version="0.5.4" target="fab4" minTarget="7.7" maxTarget="*">
+    <applet name="SpotifyConnect" version="0.7.0" target="fab4" minTarget="7.7" maxTarget="*">
       <title lang="EN">Spotify Connect</title>
       <desc lang="EN">Standalone Spotify Connect playback for Logitech Squeezebox Touch. LMS is only needed to install the applet.</desc>
-      <changes lang="EN">Fix playback across natural track boundaries and rapid Spotify track changes.</changes>
+      <changes lang="EN">Latch audio-completed events for reliable automatic track advancement; preserve complete endings and immediate manual skips; fix mobile selection and native Now Playing updates; remove UI shell polling.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.5.4/SpotifyConnect-0.5.4.zip</url>
-      <sha>4e32aa2c095827dccce8472e554cf9abb9ff332f</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.7.0/SpotifyConnect-0.7.0.zip</url>
+      <sha>838362554be3ea0828dcfff3dcf30414b19ff47c</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.2" target="baby" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.3" target="baby" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
       <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Radio.</desc>
-      <changes lang="EN">Support the validated primary-first Radio 7.7.3 storage layout, retaining strict volume geometry, health and firmware checks. Fix exact volume-name matching.</changes>
+      <changes lang="EN">Add source-aware XML applet repositories, bounded public downloads, firmware compatibility filtering and persistent cached catalogs; retain safe dynamic Extended Storage validation.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.2/StandaloneBase-0.7.2-baby.zip</url>
-      <sha>6e3530a01b04504fd16ab238641850bd047b45aa</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.3/StandaloneBase-0.7.3-baby.zip</url>
+      <sha>e13eaa1cdac01a9cf8b4318f2fd466a5af13a7cc</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.2" target="fab4" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.3" target="fab4" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
       <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Touch.</desc>
-      <changes lang="EN">Support the validated primary-first Radio 7.7.3 storage layout, retaining strict volume geometry, health and firmware checks. Fix exact volume-name matching.</changes>
+      <changes lang="EN">Add source-aware XML applet repositories, bounded public downloads, firmware compatibility filtering and persistent cached catalogs; retain safe dynamic Extended Storage validation.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.2/StandaloneBase-0.7.2-fab4.zip</url>
-      <sha>26568cfedb6c32fce317cc7ed4895cbf0329114e</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.3/StandaloneBase-0.7.3-fab4.zip</url>
+      <sha>db8651d0f7d022cabb9d03621b8c80eb00aa0f7c</sha>
     </applet>
     <applet name="StandaloneRadio" version="0.9.20" target="baby" minTarget="7.7" maxTarget="*">
       <title lang="EN">Standalone Radio</title>
