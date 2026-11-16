@@ -9,6 +9,7 @@ Radio's built-in **Applet Installer**:
 | **Standalone Base** | Required base for the others: HTTPS proxy, Now Playing, web interface, Extended Storage. Install first | [ssbrandsma/SBStandaloneBase](https://github.com/ssbrandsma/SBStandaloneBase) |
 | **Standalone Radio** | Internet radio on the Radio without a running music server | [ssbrandsma/SBStandalone](https://github.com/ssbrandsma/SBStandalone) |
 | **Spotify Connect** | Makes the Radio a Spotify Connect speaker | [ssbrandsma/squeezebox-radio-spotify-connect](https://github.com/ssbrandsma/squeezebox-radio-spotify-connect) |
+| **AirPlay** | Makes the Radio an AirPlay speaker for iPhone, iPad and Mac (early, 0.1.x) | [macsatcom/SBRadioAirplay](https://github.com/macsatcom/SBRadioAirplay) |
 
 New upstream versions are built automatically every day and published under
 [Releases](https://github.com/macsatcom/SBRadio/releases).
@@ -98,7 +99,7 @@ Plugins::SBRadio::Plugin ... offering 4 applet entries
    confirm. The Radio downloads it from LMS and restarts. After the restart it
    shows "Standalone" at the top of the screen.
 4. Open the **Applet Installer** again and install **Standalone Radio**
-   and, if you want it, **Spotify Connect** the same way.
+   and, if you want them, **Spotify Connect** and **AirPlay** the same way.
 5. After the restart the applets are in the Home menu (or under My Apps /
    Extras, depending on firmware).
 
@@ -109,6 +110,12 @@ Storage support. Since Standalone Radio 0.9.8 it is required.
 
 **Spotify Connect** is large (4 MB+). The author recommends enabling
 **Extended Storage** in Standalone Base before installing it.
+
+**AirPlay:** after installing, the Radio shows up as an AirPlay speaker on
+iPhones, iPads and Macs on the same network. The **AirPlay** item in the Home
+menu sets the operating mode and speaker name. See the
+[AirPlay README](https://github.com/macsatcom/SBRadioAirplay#readme) for
+details and known limitations.
 
 **Spotify Connect:** after installing, open the applet on the Radio and follow
 the pairing instructions there. The Radio then shows up as a speaker in the
@@ -195,8 +202,11 @@ the plugin at the same time.
 
 ## Credits
 
-The applets are written by Sjoerd Brandsma
-([ssbrandsma](https://github.com/ssbrandsma)). This repository only builds and
+Standalone Base, Standalone Radio and Spotify Connect are written by Sjoerd
+Brandsma ([ssbrandsma](https://github.com/ssbrandsma)). AirPlay is a separate
+project, [macsatcom/SBRadioAirplay](https://github.com/macsatcom/SBRadioAirplay),
+based on philippe44's libraop; its release ZIPs are copied here unchanged after
+their SHA-1 checksums are verified. This repository only builds and
 repackages them; report applet bugs to the upstream projects. Standalone Radio
 is built from source here. Spotify Connect and Standalone Base contain native
 ARM programs that need the author's own toolchain, so their packages are taken

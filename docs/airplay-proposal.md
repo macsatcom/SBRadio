@@ -1,9 +1,9 @@
 # Proposal: AirPlay receiver applet for Squeezebox Radio / Touch
 
-Status: **idea / proposal**, not started. This document is meant as a
-starting point for a discussion with the author of Standalone Base and
-Spotify Connect (Sjoerd Brandsma, [ssbrandsma](https://github.com/ssbrandsma)),
-or anyone who wants to pick it up.
+Status: **implemented** in
+[macsatcom/SBRadioAirplay](https://github.com/macsatcom/SBRadioAirplay)
+(0.1.0, AirPlay 1) and installable through the SB Radio Applets plugin. This
+document is kept as the original design proposal.
 
 ## Goal
 

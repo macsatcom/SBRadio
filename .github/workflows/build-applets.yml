@@ -162,8 +162,57 @@ jobs:
             --title "$NAME $ver" --latest=false \
             --notes "$NAME $ver, re-hosted unchanged from the author's build ($SRC). Source: https://github.com/$UPSTREAM"
 
+  # Applets that publish ready-made per-target ZIPs plus SHA1SUMS as GitHub
+  # release assets. The latest release is copied here after its checksums
+  # are verified.
+  from-release:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: AirPlay
+            upstream: macsatcom/SBRadioAirplay
+            title: AirPlay
+            desc: "AirPlay 1 receiver: play from iPhone, iPad or Mac straight to the Squeezebox, without a music server. Requires Standalone Base."
+            creator: macsatcom
+            min_target: "7.7.2"
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NAME: ${{ matrix.name }}
+      UPSTREAM: ${{ matrix.upstream }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Copy latest upstream release
+        run: |
+          set -euo pipefail
+          rel=$(gh release view -R "$UPSTREAM" --json tagName -q .tagName)
+          ver=${rel#v}
+          tag="$NAME-v$ver"
+          echo "Upstream latest release: $rel"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            if [ "${{ inputs.force }}" != "true" ]; then echo "release $tag exists"; exit 0; fi
+            gh release delete "$tag" --cleanup-tag -y
+          fi
+          mkdir -p d && cd d
+          gh release download "$rel" -R "$UPSTREAM" -p "$NAME-$ver-*.zip" -p SHA1SUMS
+          sha1sum -c SHA1SUMS
+          args=()
+          for z in "$NAME-$ver"-*.zip; do
+            t=${z#"$NAME-$ver-"}; args+=(--zip "${t%.zip}=$z")
+          done
+          python3 ../tools/make_fragment.py --name "$NAME" --version "$ver" \
+            --title "${{ matrix.title }}" --desc "${{ matrix.desc }}" \
+            --creator "${{ matrix.creator }}" --min-target "${{ matrix.min_target }}" \
+            --base-url "https://github.com/$GITHUB_REPOSITORY/releases/download/$tag" \
+            "${args[@]}" --out "$NAME.extensions.xml"
+          gh release create "$tag" "$NAME-$ver"-*.zip "$NAME.extensions.xml" -R "$GITHUB_REPOSITORY" \
+            --title "$NAME $ver" --latest=false \
+            --notes "$NAME $ver, copied unchanged from https://github.com/$UPSTREAM/releases/tag/$rel (SHA-1 verified)."
+
   index:
-    needs: [build, rehost]
+    needs: [build, rehost, from-release]
     if: always()
     runs-on: ubuntu-latest
     env:
