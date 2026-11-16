@@ -47,7 +47,8 @@ GitHub (HTTPS) ──► LMS + SB Radio Applets plugin ──(HTTP :9000)──�
 ```
 
 No extra software, ports or IP addresses to configure. The plugin checks
-GitHub for new versions every 6 hours. If a download fails or a checksum
+GitHub for new versions every hour, and again when a Radio opens the Applet
+Installer. If a download fails or a checksum
 doesn't match, the last good version stays available.
 
 ## 2. What you need
@@ -124,14 +125,16 @@ Spotify app on devices on the same network.
 ## 5. Updates
 
 **Applets:** every day this repository checks for new upstream versions and
-builds them. The plugin picks them up within 6 hours. To install an update on
-the Radio, open **Settings → Advanced → Applet Installer** again; updated
-applets are offered there.
-
-To fetch new versions right away, restart LMS.
+builds them. The plugin checks GitHub every hour. Opening the Applet Installer
+on the Radio also makes it check (at most every 10 minutes), so if a new
+version isn't listed yet, back out and open the Applet Installer again a
+minute later. To install an update on the Radio, open
+**Settings → Advanced → Applet Installer**; updated applets are offered there.
+No LMS restart is needed for new applet versions.
 
 **The plugin itself:** LMS shows plugin updates in **Settings → Manage
-Plugins** like any other plugin.
+Plugins** like any other plugin. Click **Apply** and then **Restart LMS** when
+asked: LMS only loads a new plugin version after a restart.
 
 ## 6. Troubleshooting
 

@@ -57,7 +57,7 @@ jobs:
             <plugins>
               <plugin name="SBRadio" version="$VER" minTarget="7.9" maxTarget="*">
                 <title lang="EN">SB Radio Applets</title>
-                <desc lang="EN">Offers Standalone Radio and Spotify Connect to Squeezebox Radio and Touch in the Applet Installer. The players download the applets from this LMS over plain HTTP.</desc>
+                <desc lang="EN">Offers Standalone Base, Standalone Radio, Spotify Connect and AirPlay to Squeezebox Radio and Touch in the Applet Installer. The players download the applets from this LMS over plain HTTP.</desc>
                 <creator>macsatcom</creator>
                 <category>tools</category>
                 <link>https://github.com/$GITHUB_REPOSITORY</link>

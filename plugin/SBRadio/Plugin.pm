@@ -29,13 +29,16 @@ my $log = Slim::Utils::Log->addLogCategory({
 my $prefs = preferences('plugin.sbradio');
 $prefs->init({
 	repoUrl  => 'https://raw.githubusercontent.com/macsatcom/SBRadio/main/extensions.xml',
-	interval => 6 * 3600,
 });
+
+use constant SYNC_INTERVAL  => 3600;  # regular check for new applet versions
+use constant SYNC_ON_DEMAND => 600;   # re-check when a player opens the Applet Installer
 
 my $RAW_PATH = 'sbradio/applets';
 my $cacheDir;
 my @entries;      # verified applet entries currently offered
 my $syncing = 0;
+my $lastSync = 0;
 
 sub initPlugin {
 	my $class = shift;
@@ -138,9 +141,10 @@ sub _loadIndex {
 
 sub sync {
 	Slim::Utils::Timers::killTimers(undef, \&sync);
-	Slim::Utils::Timers::setTimer(undef, time() + ($prefs->get('interval') || 21600), \&sync);
+	Slim::Utils::Timers::setTimer(undef, time() + SYNC_INTERVAL, \&sync);
 	return if $syncing;
 	$syncing = 1;
+	$lastSync = time();
 
 	my $url = $prefs->get('repoUrl');
 	main::INFOLOG && $log->info("fetching $url");
@@ -227,6 +231,11 @@ sub _prune {
 # Extension provider called for "jiveapplets" queries from the players
 sub getExtensions {
 	my $args = shift;
+
+	# A player opened the Applet Installer: answer from what we have now, and
+	# check GitHub in the background so new versions show up on the next
+	# visit without restarting LMS.
+	sync() if !$syncing && time() - $lastSync > SYNC_ON_DEMAND;
 
 	my @res;
 	if (($args->{type} || '') eq 'applet') {
