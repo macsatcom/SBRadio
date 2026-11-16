@@ -4,6 +4,20 @@
     <title lang="EN">SBRadio Applet Repository</title>
   </details>
   <applets>
+    <applet name="AirPlay" version="0.1.0" target="baby" minTarget="7.7.2" maxTarget="*">
+      <title lang="EN">AirPlay</title>
+      <desc lang="EN">AirPlay 1 receiver: play from iPhone, iPad or Mac straight to the Squeezebox, without a music server. Requires Standalone Base.</desc>
+      <creator>macsatcom</creator>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/AirPlay-v0.1.0/AirPlay-0.1.0-baby.zip</url>
+      <sha>027a5f243223404313acebe72925a198ad96045b</sha>
+    </applet>
+    <applet name="AirPlay" version="0.1.0" target="fab4" minTarget="7.7.2" maxTarget="*">
+      <title lang="EN">AirPlay</title>
+      <desc lang="EN">AirPlay 1 receiver: play from iPhone, iPad or Mac straight to the Squeezebox, without a music server. Requires Standalone Base.</desc>
+      <creator>macsatcom</creator>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/AirPlay-v0.1.0/AirPlay-0.1.0-fab4.zip</url>
+      <sha>bfe0f0b5b0028df0da67a70e8ba7051ec2b2121b</sha>
+    </applet>
     <applet name="SpotifyConnect" version="0.7.0" target="baby" minTarget="7.7" maxTarget="*">
       <title lang="EN">Spotify Connect</title>
       <desc lang="EN">Standalone Spotify Connect playback for Logitech Squeezebox Radio. LMS is only needed to install the applet.</desc>
