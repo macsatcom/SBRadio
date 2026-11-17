@@ -34,21 +34,21 @@
       <url>https://github.com/macsatcom/SBRadio/releases/download/SpotifyConnect-v0.7.0/SpotifyConnect-0.7.0.zip</url>
       <sha>838362554be3ea0828dcfff3dcf30414b19ff47c</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.3" target="baby" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.5" target="baby" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
-      <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Radio.</desc>
-      <changes lang="EN">Add source-aware XML applet repositories, bounded public downloads, firmware compatibility filtering and persistent cached catalogs; retain safe dynamic Extended Storage validation.</changes>
+      <desc lang="EN">EXPERIMENTAL: known Baby startup/reboot failure; recovery may be required. Standalone Base UPnP/DLNA, VPN and HTTPS candidate.</desc>
+      <changes lang="EN">Experimental 0.7.5: UPnP/DLNA in My Music, optional renderer, VPN and HTTPS. Known issue: Baby startup validation failed with a full reboot loop and required rollback. Hardware acceptance remains incomplete.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.3/StandaloneBase-0.7.3-baby.zip</url>
-      <sha>e13eaa1cdac01a9cf8b4318f2fd466a5af13a7cc</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.5/StandaloneBase-0.7.5-baby.zip</url>
+      <sha>824758eacb0caf88290c73e2ffea0a0553826f8c</sha>
     </applet>
-    <applet name="StandaloneBase" version="0.7.3" target="fab4" minTarget="7.7.2" maxTarget="*">
+    <applet name="StandaloneBase" version="0.7.5" target="fab4" minTarget="7.7.2" maxTarget="*">
       <title lang="EN">Standalone Base</title>
-      <desc lang="EN">Local LMS-compatible infrastructure for Squeezebox Touch.</desc>
-      <changes lang="EN">Add source-aware XML applet repositories, bounded public downloads, firmware compatibility filtering and persistent cached catalogs; retain safe dynamic Extended Storage validation.</changes>
+      <desc lang="EN">EXPERIMENTAL: known Baby startup/reboot failure; recovery may be required. Standalone Base UPnP/DLNA, VPN and HTTPS candidate.</desc>
+      <changes lang="EN">Experimental 0.7.5: UPnP/DLNA in My Music, optional renderer, VPN and HTTPS. Known issue: Baby startup validation failed with a full reboot loop and required rollback. Hardware acceptance remains incomplete.</changes>
       <creator>Sjoerd Brandsma</creator>
-      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.3/StandaloneBase-0.7.3-fab4.zip</url>
-      <sha>db8651d0f7d022cabb9d03621b8c80eb00aa0f7c</sha>
+      <url>https://github.com/macsatcom/SBRadio/releases/download/StandaloneBase-v0.7.5/StandaloneBase-0.7.5-fab4.zip</url>
+      <sha>dbd094aab8c7bb270b80b7eab98e1dc929244a60</sha>
     </applet>
     <applet name="StandaloneRadio" version="0.9.20" target="baby" minTarget="7.7" maxTarget="*">
       <title lang="EN">Standalone Radio</title>
